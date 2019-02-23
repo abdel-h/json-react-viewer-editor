@@ -35,12 +35,31 @@ export default class Form extends Component {
                             type: 'text',
                             name: 'text-field-name-2',
                             value: 'text-field-value-1'
+                        },
+                        'document-id-7': {
+                            type: 'structure',
+                            name: 'document-name-7',
+                            value: {
+                                'document-id-8': {
+                                    type: 'text',
+                                    name: 'text-field-name-8',
+                                    value: 'text-field-value-8'
+                                }
+                            }
                         }
                     }
                 }
             }
         };
     }
+
+    updateDocument = (id, value) => {
+        this.setState({
+            form: {
+                ...this.state.form
+            }
+        });
+    };
 
     render() {
         const { form } = this.state;
@@ -56,6 +75,7 @@ export default class Form extends Component {
                             type={type}
                             value={value}
                             name={name}
+                            id={document}
                         />
                     );
                 })}
