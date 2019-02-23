@@ -56,7 +56,8 @@ export default class Form extends Component {
     updateDocument = (id, value) => {
         this.setState({
             form: {
-                ...this.state.form
+                ...this.state.form,
+                id: value
             }
         });
     };

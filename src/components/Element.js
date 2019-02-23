@@ -1,9 +1,20 @@
 import React, { Component } from 'react';
 
 export default class Element extends Component {
-    handleChange = (event, type) => {
-        const val = event.target.value;
-        console.log(val, type);
+    handleChange = (event, changeType) => {
+        const v = event.target.value;
+        const { type, name, value, id } = this.props;
+        const oldDoc = {
+            type,
+            name,
+            value
+        };
+        let newDoc = {
+            ...oldDoc,
+            [changeType]: v
+        };
+        // We need to send this doc to the state and update it
+        console.log(newDoc, id);
     };
     render() {
         const { type, name, value, id } = this.props;
