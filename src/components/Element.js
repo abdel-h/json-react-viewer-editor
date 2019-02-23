@@ -14,7 +14,7 @@ export default class Element extends Component {
             [changeType]: v
         };
         // We need to send this doc to the state and update it
-        console.log(newDoc, id);
+        this.props.update(id, newDoc);
     };
     render() {
         const { type, name, value, id } = this.props;
@@ -30,6 +30,7 @@ export default class Element extends Component {
                         value={fieldValue}
                         name={name}
                         id={document}
+                        update={this.props.update}
                     />
                 );
             });

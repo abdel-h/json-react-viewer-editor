@@ -54,10 +54,12 @@ export default class Form extends Component {
     }
 
     updateDocument = (id, value) => {
+        console.log(id, value);
+        const docId = id;
         this.setState({
             form: {
                 ...this.state.form,
-                id: value
+                [id]: value
             }
         });
     };
@@ -77,6 +79,7 @@ export default class Form extends Component {
                             value={value}
                             name={name}
                             id={document}
+                            update={this.updateDocument}
                         />
                     );
                 })}
