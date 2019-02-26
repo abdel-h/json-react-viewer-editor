@@ -53,15 +53,16 @@ export default class Form extends Component {
         };
     }
 
-    updateDocument = (id, value) => {
-        console.log(id, value);
-        const docId = id;
-        this.setState({
-            form: {
-                ...this.state.form,
-                [id]: value
+    updateDocument = (parents, id, value) => {
+        if (parents) {
+            let tree = this.state.form[parents[0]].value;
+            console.log('1', tree);
+            for (let i = 1; i < parents.length; i++) {
+                tree = tree[parents[i]].value;
             }
-        });
+
+            console.log(tree);
+        }
     };
 
     render() {
@@ -79,6 +80,7 @@ export default class Form extends Component {
                             value={value}
                             name={name}
                             id={document}
+                            parents={false}
                             update={this.updateDocument}
                         />
                     );
