@@ -21,10 +21,15 @@ export default class Element extends Component {
         const { parents, id } = this.props;
         this.props.add(parents, id);
     };
+
+    handleSelectChange = event => {
+        const type = event.target.value;
+        const { parents, id } = this.props;
+        this.props.changeType(parents, id, type);
+    };
     render() {
         const { type, name, value, id, parents } = this.props;
         const parentsIds = [];
-
         if (parents == false) {
             parentsIds.push(id);
         } else {
@@ -45,6 +50,7 @@ export default class Element extends Component {
                         parents={parentsIds}
                         update={this.props.update}
                         add={this.props.add}
+                        changeType={this.props.changeType}
                     />
                 );
             });
@@ -73,9 +79,13 @@ export default class Element extends Component {
                         name={`${id}-value`}
                         onChange={e => this.handleChange(e, 'value')}
                     />
-                    <select name="" value={type}>
+                    <select
+                        name=""
+                        value={type}
+                        onChange={this.handleSelectChange}
+                    >
                         <option value="text">Text</option>
-                        <option value="strcuture">Structure</option>
+                        <option value="structure">Structure</option>
                     </select>
                 </div>
             );

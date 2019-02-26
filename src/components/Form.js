@@ -71,6 +71,28 @@ export default class Form extends Component {
         }
     };
 
+    changeDocType = (parents, id, type) => {
+        if (parents) {
+            console.log(type);
+            let form = { ...this.state.form };
+            let pointer = form;
+            let path = [...parents, id];
+            let level = 0;
+            while (level < path.length) {
+                if (pointer.hasOwnProperty(id)) {
+                    pointer[id].type = type;
+                    if (type == 'structure') {
+                        pointer[id].value = {};
+                    }
+                }
+                pointer = pointer[path[level]].value;
+                level++;
+            }
+            console.log(this.state);
+            this.setState({ ...this.state, form: form });
+        }
+    };
+
     addChild = (parents, id) => {
         let form = { ...this.state.form };
         let pointer = form;
@@ -91,7 +113,7 @@ export default class Form extends Component {
             if (pointer.hasOwnProperty(id)) {
                 pointer[id].value = {
                     ...pointer[id].value,
-                    [`document-id-${this.state.idGen}`]: 'should be doc 9'
+                    [`document-id-${this.state.idGen}`]: newDocument
                 };
             }
             pointer = pointer[path[level]].value;
@@ -123,6 +145,7 @@ export default class Form extends Component {
                             parents={false}
                             update={this.updateDocument}
                             add={this.addChild}
+                            changeType={this.changeDocType}
                         />
                     );
                 })}
