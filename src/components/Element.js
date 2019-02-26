@@ -32,7 +32,7 @@ export default class Element extends Component {
                 let fieldValue = value[document].value;
                 return (
                     <Element
-                        key={name}
+                        key={document}
                         type={type}
                         value={fieldValue}
                         name={name}

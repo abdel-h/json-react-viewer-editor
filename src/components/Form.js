@@ -82,7 +82,7 @@ export default class Form extends Component {
                     let { name, type, value } = doc;
                     return (
                         <Element
-                            key={name}
+                            key={document}
                             type={type}
                             value={value}
                             name={name}
