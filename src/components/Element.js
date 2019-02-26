@@ -16,6 +16,11 @@ export default class Element extends Component {
         // We need to send this doc to the state and update it
         this.props.update(parents, id, newDoc);
     };
+
+    handleAdd = event => {
+        const { parents, id } = this.props;
+        this.props.add(parents, id);
+    };
     render() {
         const { type, name, value, id, parents } = this.props;
         const parentsIds = [];
@@ -39,6 +44,7 @@ export default class Element extends Component {
                         id={document}
                         parents={parentsIds}
                         update={this.props.update}
+                        add={this.props.add}
                     />
                 );
             });
@@ -46,7 +52,7 @@ export default class Element extends Component {
             return (
                 <div>
                     <input type="text" value={name} name={id} defaultValue="" />
-                    <button>Add Child</button>
+                    <button onClick={this.handleAdd}>Add Child</button>
                     {structureChildren}
                 </div>
             );

@@ -5,6 +5,7 @@ export default class Form extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            idGen: 10,
             form: {
                 'document-id-1': {
                     type: 'structure',
@@ -61,15 +62,47 @@ export default class Form extends Component {
             let level = 0;
             while (level < path.length) {
                 if (pointer.hasOwnProperty(id)) {
-                    console.log(value);
                     pointer[id] = value;
-                    // console.log('should modify', level, pointer);
                 }
                 pointer = pointer[path[level]].value;
                 level++;
             }
             this.setState({ ...this.state, form: form });
         }
+    };
+
+    addChild = (parents, id) => {
+        let form = { ...this.state.form };
+        let pointer = form;
+        let path;
+        if (parents) {
+            path = [...parents, id];
+        } else {
+            path = [id];
+        }
+
+        let level = 0;
+        const newDocument = {
+            type: 'text',
+            name: `text-field-name-${this.state.idGen}`,
+            value: `text-field-value-${this.state.idGen}`
+        };
+        while (level < path.length) {
+            if (pointer.hasOwnProperty(id)) {
+                pointer[id].value = {
+                    ...pointer[id].value,
+                    [`document-id-${this.state.idGen}`]: 'should be doc 9'
+                };
+            }
+            pointer = pointer[path[level]].value;
+            level++;
+        }
+        let idGen = this.state.idGen++;
+        this.setState({
+            ...this.state,
+            idGen: idGen++
+        });
+        this.setState({ ...this.state, idGen: this.state.idGen++, form: form });
     };
 
     render() {
@@ -89,6 +122,7 @@ export default class Form extends Component {
                             id={document}
                             parents={false}
                             update={this.updateDocument}
+                            add={this.addChild}
                         />
                     );
                 })}
