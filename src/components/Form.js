@@ -55,13 +55,20 @@ export default class Form extends Component {
 
     updateDocument = (parents, id, value) => {
         if (parents) {
-            let tree = this.state.form[parents[0]].value;
-            console.log('1', tree);
-            for (let i = 1; i < parents.length; i++) {
-                tree = tree[parents[i]].value;
+            let form = { ...this.state.form };
+            let pointer = form;
+            let path = [...parents, id];
+            let level = 0;
+            while (level < path.length) {
+                if (pointer.hasOwnProperty(id)) {
+                    console.log(value);
+                    pointer[id] = value;
+                    // console.log('should modify', level, pointer);
+                }
+                pointer = pointer[path[level]].value;
+                level++;
             }
-
-            console.log(tree);
+            this.setState({ ...this.state, form: form });
         }
     };
 

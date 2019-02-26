@@ -45,7 +45,7 @@ export default class Element extends Component {
 
             return (
                 <div>
-                    <input type="text" value={name} name={id} />
+                    <input type="text" value={name} name={id} defaultValue="" />
                     <button>Add Child</button>
                     {structureChildren}
                 </div>
@@ -54,15 +54,17 @@ export default class Element extends Component {
             return (
                 <div>
                     <input
+                        key={`${id}-nameinput`}
                         type="text"
                         value={name}
                         onChange={e => this.handleChange(e, 'name')}
-                        name={id}
+                        name={`${id}-name`}
                     />
                     <input
+                        key={`${id}-valueinput`}
                         type="text"
                         value={value}
-                        name={id}
+                        name={`${id}-value`}
                         onChange={e => this.handleChange(e, 'value')}
                     />
                     <select name="" value={type}>
