@@ -54,6 +54,26 @@ export default class Form extends Component {
         };
     }
 
+    addElement = () => {
+        const newDocument = {
+            type: 'text',
+            name: `text-field-name-${this.state.idGen}`,
+            value: `text-field-value-${this.state.idGen}`
+        };
+        this.setState({
+            ...this.state,
+            form: {
+                ...this.state.form,
+                [`document-id-${this.state.idGen}`]: newDocument
+            }
+        });
+        let idGen = this.state.idGen++;
+        console.log(idGen);
+        this.setState({
+            ...this.state,
+            idGen: idGen++
+        });
+    };
     updateDocument = (parents, id, value) => {
         if (parents) {
             let form = { ...this.state.form };
@@ -73,7 +93,6 @@ export default class Form extends Component {
 
     changeDocType = (parents, id, type) => {
         if (parents) {
-            console.log(type);
             let form = { ...this.state.form };
             let pointer = form;
             let path = [...parents, id];
@@ -88,7 +107,6 @@ export default class Form extends Component {
                 pointer = pointer[path[level]].value;
                 level++;
             }
-            console.log(this.state);
             this.setState({ ...this.state, form: form });
         }
     };
@@ -132,6 +150,7 @@ export default class Form extends Component {
         const docs = Object.keys(form);
         return (
             <div>
+                <button onClick={this.addElement}>Add Element</button>
                 {docs.map(document => {
                     let doc = form[document];
                     let { name, type, value } = doc;
